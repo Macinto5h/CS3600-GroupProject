@@ -1,6 +1,19 @@
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 Tables:
---------------------------------------------------------------------------------
+There are a couple things that need to be changed.
+1. I don't think that we can define Candidate keys like this, I don't even know if it matters to declare certain candidate keys.
+2. The Float(*round*) needs to be changed. I tried to use this line in MariaDB on my computer and it didn't work:
+   MariaDB [prs1005]> Create table Employee (
+    -> Id int(10) Primary key,
+    -> FirstName char(20),
+    -> LastName char(20),
+    -> Payrate ROUND(Float(5),2),
+    -> Position char(20));
+   ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ROUND(Float(5),2),
+   Position char(20))' at line 5
+
+If anything else needs to be stated, please add it and let me know
+------------------------------------------------------------------------------------------------------------------------------
 Create table Person (
 Id int(10) Primary key,
 FirstName char(20),
@@ -9,7 +22,7 @@ PhoneNum Char(15),
 Email char(30),
 Address char(30),
 *Candidate key (FirstName, LastName));
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 Create table Customer (
 Id int(10) Primary key,
 FirstName char(20),
@@ -19,7 +32,7 @@ ReceivesMail BOOLEAN,
 Foreign key (Id) references Person(Id),
 Foreign key (FirstName) references Person(FirstName),
 Foreign key (LastName) references Person(LastName));
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 Create table Employee (
 Id int(10) Primary key,
 FirstName char(20),
@@ -30,7 +43,7 @@ Position char(20),
 Foreign key (Id) references Person(Id),
 Foreign key (FirstName) references Person(FirstName),
 Foreign key (LastName) references Person(LastName));
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 Create table Product (
 Id int(10) Primary key,
 Price float(*round*),
@@ -38,7 +51,7 @@ Name char(50),
 Stock int(10),
 Release DATE,
 Constraint Stock Check (0 <= Stock));
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 Create table Sales (
 SalesId int(10) Not NULL Primary key,
 CustomerId int(10),
@@ -55,15 +68,15 @@ Foreign key (ProductPrice) references Product(Price),
 Foreign key (Stock) references Product(Stock),
 Constraint Quantity Check (0 < Quantity <= Stock),
 Constraint Total Check (Total = Quantity * ProductPrice));
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 Create table Department (
 Id int(10) Not NULL,
 DeptName char(20) Primary key);
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 Create table WorksIn (
 EmployeeId int(10) Primary key,
 Since DATE,
 DeptId int(10),
 Foreign key (EmployeeId) references Employee(Id),
 Foreign key (DeptId) references Department(Id));
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
