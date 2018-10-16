@@ -1,0 +1,69 @@
+--------------------------------------------------------------------------------
+Tables:
+--------------------------------------------------------------------------------
+Create table Person (
+Id int(10) Primary key,
+FirstName char(20),
+LastName char(20),
+PhoneNum Char(15),
+Email char(30),
+Address char(30),
+*Candidate key (FirstName, LastName));
+--------------------------------------------------------------------------------
+Create table Customer (
+Id int(10) Primary key,
+FirstName char(20),
+LastName char(20),
+ReceivesMail BOOLEAN,
+*Candidate key (FirstName, LastName),
+Foreign key (Id) references Person(Id),
+Foreign key (FirstName) references Person(FirstName),
+Foreign key (LastName) references Person(LastName));
+--------------------------------------------------------------------------------
+Create table Employee (
+Id int(10) Primary key,
+FirstName char(20),
+LastName char(20),
+Payrate Float(*round*),
+Position char(20),
+*Candidate key (FirstName, LastName),
+Foreign key (Id) references Person(Id),
+Foreign key (FirstName) references Person(FirstName),
+Foreign key (LastName) references Person(LastName));
+--------------------------------------------------------------------------------
+Create table Product (
+Id int(10) Primary key,
+Price float(*round*),
+Name char(50),
+Stock int(10),
+Release DATE,
+Constraint Stock Check (0 <= Stock));
+--------------------------------------------------------------------------------
+Create table Sales (
+SalesId int(10) Not NULL Primary key,
+CustomerId int(10),
+ProductId int(10) Not NULL,
+Date DATE,
+Total float(*round*) Not NULL,
+Quantity int(10),
+IsReturn BOOLEAN,
+Primary key (SalesId),
+*Candidate key (CustomerId, ProductId),
+Foreign key (CustomerId) references Customer(Id),
+Foreign key (ProductId) references Product(Id),
+Foreign key (ProductPrice) references Product(Price),
+Foreign key (Stock) references Product(Stock),
+Constraint Quantity Check (0 < Quantity <= Stock),
+Constraint Total Check (Total = Quantity * ProductPrice));
+--------------------------------------------------------------------------------
+Create table Department (
+Id int(10) Not NULL,
+DeptName char(20) Primary key);
+--------------------------------------------------------------------------------
+Create table WorksIn (
+EmployeeId int(10) Primary key,
+Since DATE,
+DeptId int(10),
+Foreign key (EmployeeId) references Employee(Id),
+Foreign key (DeptId) references Department(Id));
+--------------------------------------------------------------------------------
