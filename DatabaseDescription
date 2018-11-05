@@ -83,17 +83,24 @@ where E.Id=W.EmployeeId and W.DeptId=D.Id and D.DeptName='Retail'
 
 
 4. Best selling item
-select P.Name
-from Product P, Sales S
-where P.Id=S.ProductId
-
-
-select P.Id, Sum(S.Quantity) as TotalQuantity
+Create View ProductSold 
+(Id, QuantitySold) As
+Select P.Id, Sum(S.Quantity)
 From Product P, Sales S
-where P.Id=S.ProductId;
+where P.Id=S.ProductId
+Group by P.Id;
 
+Select Name
+From ProductSold P, Product P1,
+(select Max(QuantitySold) as maxx 
+from ProductSold) As A
+Where P.QuantitySold=A.maxx AND P1.Id=P.Id;
 
-
++------------------+
+| Name             |
++------------------+
+| Astro Lounge, CD |
++------------------+
 
 5. Names and Addresses of Customers who receive mail (Mailing List)
 select P.FirstName, P.LastName, P.Address
