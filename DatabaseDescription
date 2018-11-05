@@ -159,7 +159,20 @@ where P.Id=C.Id and ReceivesMail=1;
 
 6. All department names that have more than 1 working employee
 
+Select DeptName
+From Department D,
+(Select DeptId, Count(DeptId) as count
+From WorksIn
+Group By DeptId) As A
+Where D.Id=A.DeptId AND Count>1;
 
++----------------+
+| DeptName       |
++----------------+
+| IT             |
+| Administration |
+| Retail         |
++----------------+
 
 
 7. Names of all products with less than 10 stock
