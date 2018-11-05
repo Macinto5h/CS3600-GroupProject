@@ -145,10 +145,16 @@ where P.Stock<10;
 
 
 
-8. Worst selling artist(s) with total product sold
-
-
-
+8. Total number of items returned to the store.
+MariaDB [Team3]> Select Sum(S.Quantity) As TotalReturnedItems
+    -> From Sales S
+    -> Where IsReturn=1;
++--------------------+
+| TotalReturnedItems |
++--------------------+
+|                  3 |
++--------------------+
+1 row in set (0.00 sec)
 
 9. Total spent per Customer
 select P.FirstName, P.LastName, Round((S.Quantity * Pr.Price),2) as Total
