@@ -1,6 +1,5 @@
+Peter Simari, Mac Camara, Gary Strzepek
 Team 3
-
-These are all the tables that we came up with
 
 MariaDB [Team3]> show tables;
 +-----------------+
@@ -15,6 +14,31 @@ MariaDB [Team3]> show tables;
 | WorksIn         |
 +-----------------+
 
+MariaDB [Team3]> desc Customer;
++--------------+---------+------+-----+---------+-------+
+| Field        | Type    | Null | Key | Default | Extra |
++--------------+---------+------+-----+---------+-------+
+| Id           | int(10) | NO   | PRI | NULL    |       |
+| ReceivesMail | char(5) | YES  |     | NULL    |       |
++--------------+---------+------+-----+---------+-------+
+
+MariaDB [Team3]> desc Department;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| Id       | int(10)  | NO   | PRI | NULL    |       |
+| DeptName | char(20) | NO   |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+
+MariaDB [Team3]> desc Employee;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| Id       | int(10)  | NO   | PRI | NULL    |       |
+| Payrate  | float    | YES  |     | NULL    |       |
+| Position | char(20) | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+
 MariaDB [Team3]> desc Person;
 +-----------+----------+------+-----+---------+-------+
 | Field     | Type     | Null | Key | Default | Extra |
@@ -27,26 +51,40 @@ MariaDB [Team3]> desc Person;
 | Address   | char(30) | YES  |     | NULL    |       |
 +-----------+----------+------+-----+---------+-------+
 
-MariaDB [Team3]> desc Customer;
-+--------------+---------+------+-----+---------+-------+
-| Field        | Type    | Null | Key | Default | Extra |
-+--------------+---------+------+-----+---------+-------+
-| Id           | int(10) | NO   | PRI | NULL    |       |
-| ReceivesMail | char(5) | YES  |     | NULL    |       |
-+--------------+---------+------+-----+---------+-------+
+MariaDB [Team3]> desc Product;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Id          | int(10)     | NO   | PRI | NULL    |       |
+| Price       | float       | NO   |     | NULL    |       |
+| Name        | char(50)    | YES  |     | NULL    |       |
+| Artist      | varchar(20) | NO   |     | NULL    |       |
+| Stock       | int(10)     | YES  |     | NULL    |       |
+| ReleaseDate | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
 
-MariaDB [Team3]> desc Employee;
-+----------+----------+------+-----+---------+-------+
-| Field    | Type     | Null | Key | Default | Extra |
-+----------+----------+------+-----+---------+-------+
-| Id       | int(10)  | NO   | PRI | NULL    |       |
-| Payrate  | float    | YES  |     | NULL    |       |
-| Position | char(20) | YES  |     | NULL    |       |
-+----------+----------+------+-----+---------+-------+
+MariaDB [Team3]> desc Sales;
++-------------+------------+------+-----+---------+-------+
+| Field       | Type       | Null | Key | Default | Extra |
++-------------+------------+------+-----+---------+-------+
+| SalesId     | int(10)    | NO   | PRI | NULL    |       |
+| CustomerId  | int(10)    | NO   | MUL | NULL    |       |
+| ProductId   | int(10)    | NO   | PRI | NULL    |       |
+| CurrentDate | date       | YES  |     | NULL    |       |
+| Quantity    | int(10)    | YES  |     | NULL    |       |
+| IsReturn    | tinyint(1) | YES  |     | 0       |       |
+| ReturnDate  | date       | YES  |     | NULL    |       |
++-------------+------------+------+-----+---------+-------+
 
-Both the Employee and the Customer tables are linked through the Person table. The Id's from Customer and Employee are foreign keys based off of the Person table. Therefore they cannot be NULL, and are the Primary Keys.
+MariaDB [Team3]> desc WorksIn;
++------------+---------+------+-----+---------+-------+
+| Field      | Type    | Null | Key | Default | Extra |
++------------+---------+------+-----+---------+-------+
+| EmployeeId | int(10) | NO   | PRI | NULL    |       |
+| WorksSince | date    | YES  |     | NULL    |       |
+| DeptId     | int(10) | YES  | MUL | NULL    |       |
++------------+---------+------+-----+---------+-------+
 
-We have the option to store information like FirstName, LastName, PhoneNum, Email, and Address in the person table because if a customer wants to be put into our system we could send them mail, or call them for their preorders etc. It also is used in the Employee table since the employees must have most of this information stored. If they're late, we should have the phone number to call them. We also want them on file along with their Payrate and Position.
 -------------------------------------------------------------------------------------------
 Queries:
 
