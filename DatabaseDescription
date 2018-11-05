@@ -1,0 +1,109 @@
+Team 3
+
+These are all the tables that we came up with
+
+MariaDB [Team3]> show tables;
++-----------------+
+| Tables_in_Team3 |
++-----------------+
+| Customer        |
+| Department      |
+| Employee        |
+| Person          |
+| Product         |
+| Sales           |
+| WorksIn         |
++-----------------+
+
+MariaDB [Team3]> desc Person;
++-----------+----------+------+-----+---------+-------+
+| Field     | Type     | Null | Key | Default | Extra |
++-----------+----------+------+-----+---------+-------+
+| Id        | int(10)  | NO   | PRI | NULL    |       |
+| FirstName | char(20) | YES  |     | NULL    |       |
+| LastName  | char(20) | YES  |     | NULL    |       |
+| PhoneNum  | char(15) | YES  |     | NULL    |       |
+| Email     | char(30) | YES  |     | NULL    |       |
+| Address   | char(30) | YES  |     | NULL    |       |
++-----------+----------+------+-----+---------+-------+
+
+MariaDB [Team3]> desc Customer;
++--------------+---------+------+-----+---------+-------+
+| Field        | Type    | Null | Key | Default | Extra |
++--------------+---------+------+-----+---------+-------+
+| Id           | int(10) | NO   | PRI | NULL    |       |
+| ReceivesMail | char(5) | YES  |     | NULL    |       |
++--------------+---------+------+-----+---------+-------+
+
+MariaDB [Team3]> desc Employee;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| Id       | int(10)  | NO   | PRI | NULL    |       |
+| Payrate  | float    | YES  |     | NULL    |       |
+| Position | char(20) | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+
+Both the Employee and the Customer tables are linked through the Person table. The Id's from Customer and Employee are foreign keys based off of the Person table. Therefore they cannot be NULL, and are the Primary Keys.
+
+We have the option to store information like FirstName, LastName, PhoneNum, Email, and Address in the person table because if a customer wants to be put into our system we could send them mail, or call them for their preorders etc. It also is used in the Employee table since the employees must have most of this information stored. If they're late, we should have the phone number to call them. We also want them on file along with their Payrate and Position.
+-------------------------------------------------------------------------------------------
+Queries:
+
+1. Total Revenue
+select Round(Sum(P.Price * S.Quantity),2) as GrossIncome from Product P, Sales S
+where S.IsReturn=0;
++-------------+
+| GrossIncome |
++-------------+
+|     4395.38 |
++-------------+
+
+
+2. Dr. Shen's Receipt
+select P.FirstName, P.LastName, Pr.Name, Round((S.Quantity * Pr.Price),2) as Total
+from Customer C, Sales S, Product Pr, Person P
+where Pr.Id=S.ProductId and C.Id=S.CustomerId and P.Id=S.CustomerId and P.Id=21 and S.CurrentDate='20181030' and IsReturn=0;
++-----------+----------+------------+-------+
+| FirstName | LastName | Name       | Total |
++-----------+----------+------------+-------+
+| Zhizhang  | Shen     | Bad, Vinyl | 31.99 |
++-----------+----------+------------+-------+
+
+
+3. Average Payrate of Retail Department
+select Round(Avg(E.Payrate),2) as RetailPayrate
+from Employee E, Department D, WorksIn W
+where E.Id=W.EmployeeId and W.DeptId=D.Id and D.DeptName='Retail'
++---------------+
+| RetailPayrate |
++---------------+
+|          7.92 |
++---------------+
+
+
+4. Best selling item
+select P.Name
+from Product P, Sales S
+where P.Id=S.ProductId
+
+
+select P.Id, Sum(S.Quantity) as TotalQuantity
+From Product P, Sales S
+where P.Id=S.ProductId;
+
+
+
+
+5. Names and Addresses of Customers who receive mail (Mailing List)
+6. All department names that have more than 1 working employee
+7. Names of all products with less than 10 stock
+8. Worst selling artist(s) with total product sold
+9. Total spent per Customer
+10. Employees that have worked more than one year
+
+
+
+select P.FirstName, P.LastName, Pr.Name, Round((S.Quantity * Pr.Price),2) as Total
+from Customer C, Sales S, Product Pr, Person P
+where Pr.Id=S.ProductId and C.Id=S.CustomerId and P.Id=S.CustomerId and IsReturn=0;
