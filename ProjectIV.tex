@@ -53,7 +53,11 @@
   \end{enumerate}
   \par\textbf{Sales table:}
   \begin{enumerate}[label=\roman*]
-  	\item
+  	\item The integrity constraints for the Sales table are that the SalesId and ProductId are the two attributes that make up
+    the primary key. The SalesId alone can uniquely identify the CurrentDate and CustomerId. When the SalesId and ProductId are given
+    the following attributes can be found: Quantity, IsReturned, and ReturnDate. When converted to FD's we get the following
+    relationships: $SalesId\rightarrow\{CurrentDate,CustomerId\}$, $\{SalesId,ProductId\}\rightarrow Quantity$, and 
+    $\{SalesId,ProductId\}\rightarrow\{IsReturned,ReturnDate\}$
   	\item
   	\item
   	\item
