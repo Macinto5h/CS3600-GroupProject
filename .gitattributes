@@ -1,2 +1,4 @@
 *.sql linguist-language=SQL
 *.mysql linguist-language=SQL
+Team3.sql linguist-detectable=true
+Team3.mysql linguist-detectable=true
