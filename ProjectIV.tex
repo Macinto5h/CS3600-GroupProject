@@ -18,35 +18,40 @@
   \end{itemize}
   \par\textbf{Customer table:}
   \begin{enumerate}[label=\roman*]
-  	\item
+  	\item It's primary key is a unique Id that is found in the Person table. \newline
+    $FD = Id -> ReceivesMail$
   	\item
   	\item
   	\item
   \end{enumerate}
   \par\textbf{Department table:}
   \begin{enumerate}[label=\roman*]
-  	\item
+  	\item It's primary key is the unique attribute Id. \newline
+    $FD = Id -> DeptName$
   	\item
   	\item
   	\item
   \end{enumerate}
   \par\textbf{Employee table:}
   \begin{enumerate}[label=\roman*]
-  	\item
+  	\item It's primary key is a unique Id that is found in the Person table. \newline
+    $FD = Id -> \{PayRate, Position\}$
   	\item
   	\item
   	\item
   \end{enumerate}
   \par\textbf{Person table:}
   \begin{enumerate}[label=\roman*]
-  	\item
+  	\item It's primary key is the unique attribute Id. \newline
+    $FD = Id -> \{FirstName, LastName, PhoneNum, Email, Address\}$
   	\item
   	\item
   	\item
   \end{enumerate}
   \par\textbf{Product table:}
   \begin{enumerate}[label=\roman*]
-  	\item
+  	\item It's primary key is the unique attribute Id. \newline
+    $FD = Id -> \{Price, Name, Artist, Stock, ReleaseDate\}$
   	\item
   	\item
   	\item
@@ -67,7 +72,8 @@
   \end{enumerate}
   \par\textbf{WorksIn table:}
   \begin{enumerate}[label=\roman*]
-  	\item
+  	\item It's primary key is a unique EmployeeId that is found in the Employee table. \newline
+    $FD = EmployeeId -> \{WorksSince, DeptIt\}$
   	\item
   	\item
   	\item
