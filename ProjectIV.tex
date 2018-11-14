@@ -76,7 +76,9 @@
   	table\newline (FD: $SalesId\rightarrow CurrentDate,\ CustomerId$). Those relationships are
   	then placed into another table with the attributes SalesId, CustomerId, and 
   	CurrentDate. Both of these new tables satisfy the BCNF conditions, so the Sales
-  	table was decomposed successfully.
+  	table was decomposed successfully. Also, for the purpose of better organization, we 
+  	made a third table where it holds the attributes SalesId, ProductId and ReturnDate under 
+  	the table IsReturn. This is mostly so that returned items are organized into a separate space.
   	\item Not all of the Functional Dependencies are preserved after the table is 
   	converted to abide the BCNF. Most notably, the FD:
   	$SalesId,\ ProductId\rightarrow CurrentDate, CustomerId$ was removed because it would
