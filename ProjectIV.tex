@@ -19,61 +19,75 @@
   \par\textbf{Customer table:}
   \begin{enumerate}[label=\roman*]
   	\item It's primary key is a unique Id that is found in the Person table. \newline
-    $FD = Id \rightarrow ReceivesMail$
+    $FD: Id \rightarrow ReceivesMail$
   	\item BCNF - The customer table is BCNF. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
   	\item We do not have to do any decomposition since the table is already BCNF.
-  	\item
+  	\item Since this table was already in the BCNF format no FDs were added or dropped.
   \end{enumerate}
   \par\textbf{Department table:}
   \begin{enumerate}[label=\roman*]
   	\item It's primary key is the unique attribute Id. \newline
-    $FD = Id \rightarrow DeptName$
+    $FD: Id \rightarrow DeptName$
   	\item BCNF - The department table is similar to the last one. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
   	\item We do not have to do any decomposition since the table is already BCNF.
-  	\item
+  	\item Since this table was already in the BCNF format no FDs were added or dropped.
   \end{enumerate}
   \par\textbf{Employee table:}
   \begin{enumerate}[label=\roman*]
   	\item It's primary key is a unique Id that is found in the Person table. \newline
-    $FD = Id \rightarrow \{PayRate, Position\}$
+    $FD: Id \rightarrow PayRate,\ Position$
   	\item BCNF - The employee table is similar to the last one. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
   	\item We do not have to do any decomposition since the table is already BCNF.
-  	\item
+  	\item Since this table was already in the BCNF format no FDs were added or dropped.
   \end{enumerate}
   \par\textbf{Person table:}
   \begin{enumerate}[label=\roman*]
   	\item It's primary key is the unique attribute Id. \newline
-    $FD = Id \rightarrow \{FirstName, LastName, PhoneNum, Email, Address\}$\newline
-    $FD = \{FirstName, LastName\} \rightarrow \{Id, PhoneNum, Email, Address\}$
+    $FD: Id \rightarrow FirstName,\ LastName,\ PhoneNum,\ Email,\ Address$\newline
+    $FD: FirstName, LastName \rightarrow Id,\ PhoneNum,\ Email,\ Address$
   	\item BCNF - The Person table is similar to the last one. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
   	\item We do not have to do any decomposition since the table is already BCNF.
-  	\item
+  	\item Since this table was already in the BCNF format no FDs were added or dropped.
   \end{enumerate}
   \par\textbf{Product table:}
   \begin{enumerate}[label=\roman*]
-  	\item It's primary key is the unique attribute Id. \newline
-    $FD = Id \rightarrow \{Price, Name, Artist, Stock, ReleaseDate\}$\newline
-    $FD = \{Artist, Name\} \rightarrow \{Id, Price, Stock, ReleaseDate\}$
+  	\item Product's stock attribute cannot be less than zero. The price of a product must be greater than or equal to zero (also must have only two decimal digits, achieved with round function) It's primary key is the unique attribute Id. \newline
+    $FD = Id \rightarrow Price,\ Name,\ Artist,\ Stock,\ ReleaseDate$\newline
+    $FD = Artist,\ Name \rightarrow Id,\ Price,\ Stock,\ ReleaseDate$
   	\item BCNF - The Product table is similar to the department table. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
   	\item We do not have to do any decomposition since the table is already BCNF.
-  	\item
+  	\item Since this table was already in the BCNF format no FDs were added or dropped.
   \end{enumerate}
   \par\textbf{Sales table:}
   \begin{enumerate}[label=\roman*]
-  	\item The integrity constraints for the Sales table are that the SalesId and ProductId are the two attributes that make up the primary key. The SalesId alone can uniquely identify the CurrentDate and CustomerId. When the SalesId and ProductId are given
-    the following attributes can be found: Quantity, IsReturned, and ReturnDate. When converted to FD's we get the following
-    relationships: $SalesId\rightarrow\{CurrentDate,CustomerId\}$, $\{SalesId,ProductId\}\rightarrow Quantity$, and 
-    $\{SalesId,ProductId\}\rightarrow\{IsReturned,ReturnDate\}$
+  	\item Every sale must contain a unique id, a product id, and a customer id. Quantity of a sale item must not be greater than the stock value found in the given product. No sale of item can occur before that product's release date. SalesId and
+  	ProductId are the two attributes that make up the primary key. The SalesId alone can
+  	uniquely identify the CurrentDate and CustomerId. When the SalesId and ProductId are 
+  	given the following attributes can be found: Quantity, IsReturned, and ReturnDate.
+  	 When converted to FD's we get the following relationships:
+    $SalesId\rightarrow CurrentDate,\ CustomerId$, $SalesId,\ ProductId\rightarrow
+    Quantity$,\newline and 
+    $SalesId,\ ProductId\rightarrow IsReturned,\ ReturnDate$
   	\item 1NF - The sales table is 1NF because you can easily get the CurrentDate and CustomerId information related to the sale if you were to just use SalesId. Which, violates the 2NF requirement, where you should not be able to determine information from a subset of the candidate key. The candidate key is $\{SalesId,ProductId\}$, and SalesId is a subset from that candidate key.
-  	\item
-  	\item
+  	\item When following the procedure and algorithm for making a table follow the BCNF
+  	standard, we get two new tables. The first table derived from Sales is almost 
+  	identical to the original, except that it omits the attributes, CurrentDate and 
+  	CustomerId. This removes the relationships that are not accepted in BCNF for the
+  	table\newline (FD: $SalesId\rightarrow CurrentDate,\ CustomerId$). Those relationships are
+  	then placed into another table with the attributes SalesId, CustomerId, and 
+  	CurrentDate. Both of these new tables satisfy the BCNF conditions, so the Sales
+  	table was decomposed successfully.
+  	\item Not all of the Functional Dependencies are preserved after the table is 
+  	converted to abide the BCNF. Most notably, the FD:
+  	$SalesId,\ ProductId\rightarrow CurrentDate, CustomerId$ was removed because it would
+  	fail the conditions to qualify for 2NF. 
   \end{enumerate}
   \par\textbf{WorksIn table:}
   \begin{enumerate}[label=\roman*]
   	\item It's primary key is a unique EmployeeId that is found in the Employee table. \newline
-    $FD = EmployeeId \rightarrow \{WorksSince, DeptIt\}$
+    $FD = EmployeeId \rightarrow WorksSince,\ DeptId$
   	\item BCNF - The WorksIn table is similar to the department table. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
   	\item We do not have to do any decomposition since the table is already BCNF.
-  	\item
+  	\item Since this table was already in the BCNF format no FDs were added or dropped.
   \end{enumerate}
 \end{document}
