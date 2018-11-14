@@ -209,33 +209,30 @@ where P.Stock<10;
 
 
 8. Total number of items returned to the store.
-MariaDB [Team3]> Select Sum(S.Quantity) As TotalReturnedItems
-    -> From Sales S
-    -> Where IsReturn=1;
+Select Sum(R.Quantity) As TotalReturnedItems
+    -> From IsReturn R;
 +--------------------+
 | TotalReturnedItems |
 +--------------------+
 |                  3 |
 +--------------------+
-1 row in set (0.00 sec)
 
 9. Total spent per Customer
-select P.FirstName, P.LastName, Round((S.Quantity * Pr.Price),2) as Total
-from Customer C, Sales S, Product Pr, Person P
-where Pr.Id=S.ProductId and C.Id=S.CustomerId and P.Id=S.CustomerId and IsReturn=0;
-
+select P.FirstName, P.LastName, Round((I.Quantity * Pr.Price),2) as Total
+    -> from Customer C, Sales S, Product Pr, Person P, SalesItem I
+    -> where Pr.Id=I.ProductId and C.Id=S.CustomerId and P.Id=S.CustomerId and S.SalesId=I.SalesId
+    -> group by FirstName;
 +-----------+----------+-------+
 | FirstName | LastName | Total |
 +-----------+----------+-------+
-| Zhizhang  | Shen     | 31.99 |
-| Elongated | Muskrat  | 26.97 |
-| Nosferatu | Grauens  |  6.99 |
-| Elman     | Bashar   |  3.99 |
-| Shrek     | NULL     | 39.90 |
-| Barack    | Obama    | 20.97 |
 | Abraham   | Lincoln  | 31.99 |
+| Barack    | Obama    | 20.97 |
+| Elman     | Bashar   |  3.99 |
 | Elongated | Muskrat  | 15.99 |
+| Nosferatu | Grauens  |  6.99 |
 | Rosa      | Parks    |  5.99 |
+| Shrek     | NULL     | 39.90 |
+| Zhizhang  | Shen     | 31.99 |
 +-----------+----------+-------+
 
 
