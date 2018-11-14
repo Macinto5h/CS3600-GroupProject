@@ -21,7 +21,7 @@
   	\item It's primary key is a unique Id that is found in the Person table. \newline
     $FD = Id \rightarrow ReceivesMail$
   	\item BCNF - The customer table is BCNF. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
-  	\item
+  	\item We do not have to do any decomposition since the table is already BCNF.
   	\item
   \end{enumerate}
   \par\textbf{Department table:}
@@ -29,7 +29,7 @@
   	\item It's primary key is the unique attribute Id. \newline
     $FD = Id \rightarrow DeptName$
   	\item BCNF - The department table is similar to the last one. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
-  	\item
+  	\item We do not have to do any decomposition since the table is already BCNF.
   	\item
   \end{enumerate}
   \par\textbf{Employee table:}
@@ -37,7 +37,7 @@
   	\item It's primary key is a unique Id that is found in the Person table. \newline
     $FD = Id \rightarrow \{PayRate, Position\}$
   	\item BCNF - The employee table is similar to the last one. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
-  	\item
+  	\item We do not have to do any decomposition since the table is already BCNF.
   	\item
   \end{enumerate}
   \par\textbf{Person table:}
@@ -46,7 +46,7 @@
     $FD = Id \rightarrow \{FirstName, LastName, PhoneNum, Email, Address\}$\newline
     $FD = \{FirstName, LastName\} \rightarrow \{Id, PhoneNum, Email, Address\}$
   	\item BCNF - The Person table is similar to the last one. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
-  	\item
+  	\item We do not have to do any decomposition since the table is already BCNF.
   	\item
   \end{enumerate}
   \par\textbf{Product table:}
@@ -55,7 +55,7 @@
     $FD = Id \rightarrow \{Price, Name, Artist, Stock, ReleaseDate\}$\newline
     $FD = \{Artist, Name\} \rightarrow \{Id, Price, Stock, ReleaseDate\}$
   	\item BCNF - The Product table is similar to the department table. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
-  	\item
+  	\item We do not have to do any decomposition since the table is already BCNF.
   	\item
   \end{enumerate}
   \par\textbf{Sales table:}
@@ -73,7 +73,7 @@
   	\item It's primary key is a unique EmployeeId that is found in the Employee table. \newline
     $FD = EmployeeId \rightarrow \{WorksSince, DeptIt\}$
   	\item BCNF - The WorksIn table is similar to the department table. There is the Primary key, Id, there are no other non-trivial candidate keys used, therefore there are no non-prime attributes in the table that would be able to be determined through the proper subsets from the non-existant candidate keys. There are also no transitive functional dependencies. There is only one Superkey and it directly determines the other attributes in the table.
-  	\item
+  	\item We do not have to do any decomposition since the table is already BCNF.
   	\item
   \end{enumerate}
 \end{document}
