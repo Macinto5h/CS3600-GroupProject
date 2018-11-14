@@ -63,18 +63,32 @@ MariaDB [Team3]> desc Product;
 | ReleaseDate | date        | YES  |     | NULL    |       |
 +-------------+-------------+------+-----+---------+-------+
 
+MariaDB [Team3]> desc IsReturn;
++-----------+---------+------+-----+---------+-------+
+| Field     | Type    | Null | Key | Default | Extra |
++-----------+---------+------+-----+---------+-------+
+| SalesId   | int(10) | NO   | PRI | NULL    |       |
+| ProductId | int(10) | NO   | MUL | NULL    |       |
+| Quantity  | int(10) | YES  |     | NULL    |       |
++-----------+---------+------+-----+---------+-------+
+
+MariaDB [Team3]> desc SalesItem;
++-----------+---------+------+-----+---------+-------+
+| Field     | Type    | Null | Key | Default | Extra |
++-----------+---------+------+-----+---------+-------+
+| SalesId   | int(10) | NO   | PRI | NULL    |       |
+| ProductId | int(10) | NO   | PRI | 0       |       |
+| Quantity  | int(10) | NO   | MUL | NULL    |       |
++-----------+---------+------+-----+---------+-------+
+
 MariaDB [Team3]> desc Sales;
-+-------------+------------+------+-----+---------+-------+
-| Field       | Type       | Null | Key | Default | Extra |
-+-------------+------------+------+-----+---------+-------+
-| SalesId     | int(10)    | NO   | PRI | NULL    |       |
-| CustomerId  | int(10)    | NO   | MUL | NULL    |       |
-| ProductId   | int(10)    | NO   | PRI | NULL    |       |
-| CurrentDate | date       | YES  |     | NULL    |       |
-| Quantity    | int(10)    | YES  |     | NULL    |       |
-| IsReturn    | tinyint(1) | YES  |     | 0       |       |
-| ReturnDate  | date       | YES  |     | NULL    |       |
-+-------------+------------+------+-----+---------+-------+
++-------------+---------+------+-----+---------+-------+
+| Field       | Type    | Null | Key | Default | Extra |
++-------------+---------+------+-----+---------+-------+
+| SalesId     | int(10) | NO   | PRI | NULL    |       |
+| CustomerId  | int(10) | NO   | MUL | NULL    |       |
+| CurrentDate | date    | YES  |     | NULL    |       |
++-------------+---------+------+-----+---------+-------+
 
 MariaDB [Team3]> desc WorksIn;
 +------------+---------+------+-----+---------+-------+
@@ -89,8 +103,7 @@ MariaDB [Team3]> desc WorksIn;
 Queries:
 
 1. Total Revenue
-select Round(Sum(P.Price * S.Quantity),2) as GrossIncome from Product P, Sales S
-where S.IsReturn=0;
+select Round(Sum(P.Price * S.Quantity),2) as GrossIncome from Product P, SalesItem S;
 +-------------+
 | GrossIncome |
 +-------------+
@@ -99,14 +112,14 @@ where S.IsReturn=0;
 
 
 2. Dr. Shen's Receipt
-select P.FirstName, P.LastName, Pr.Name, Round((S.Quantity * Pr.Price),2) as Total
-from Customer C, Sales S, Product Pr, Person P
-where Pr.Id=S.ProductId and C.Id=S.CustomerId and P.Id=S.CustomerId and P.Id=21 and S.CurrentDate='20181030' and IsReturn=0;
-+-----------+----------+------------+-------+
-| FirstName | LastName | Name       | Total |
-+-----------+----------+------------+-------+
-| Zhizhang  | Shen     | Bad, Vinyl | 31.99 |
-+-----------+----------+------------+-------+
+select Pr.Name, I.Quantity, Round((I.Quantity * Pr.Price),2) as Total
+from Customer C, SalesItem I, Product Pr, Person P, Sales S
+where Pr.Id=I.ProductId and C.Id=S.CustomerId and P.Id=S.CustomerId and S.CustomerId=21 and S.SalesId=I.SalesId;
++------------+----------+-------+
+| Name       | Quantity | Total |
++------------+----------+-------+
+| Bad, Vinyl |        1 | 31.99 |
++------------+----------+-------+
 
 
 3. Average Payrate of Retail Department
@@ -121,11 +134,10 @@ where E.Id=W.EmployeeId and W.DeptId=D.Id and D.DeptName='Retail'
 
 
 4. Best selling item
-Create View ProductSold 
-(Id, QuantitySold) As
-Select P.Id, Sum(S.Quantity)
-From Product P, Sales S
-where P.Id=S.ProductId
+Create View ProductSold (Id, QuantitySold) As
+Select P.Id, Sum(I.Quantity)
+From Product P, SalesItem I
+where P.Id=I.ProductId
 Group by P.Id;
 
 Select Name
