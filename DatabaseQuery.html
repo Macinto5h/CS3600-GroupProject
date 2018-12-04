@@ -1,8 +1,138 @@
+<!--This file is used to summon general and specific queries from database -->
 <!Doctype html>
-<html>
+<Html>
   <head>
+    <title>Queries</title>
+    <link rel="stylesheet" href="primaryStyle.css" />
   </head>
   <body>
-    <p>Welcome to query, this does nothing right now!</p>
-  </body>
-</html>
+    <header>
+      <div class="menu">
+        <a href="DatabaseProjectMain.html">Home</a>
+        <a href="DatabaseEnterData.html" >Enter Data</a>
+        <a class="active" href="DatabaseQuery.html">Query</a>
+        <a href="https://github.com/Macinto5h/CS3600-GroupProject" target="_blank">GitHub</a>
+      </div>
+    </header>
+
+    <div class="main_cont">
+      <H1>This html script shows how to generate results for simple queries.</H1>
+      <!--This is where we do all of the queries that are stored and run through buttons. There are 10. -->
+      <div class="block">
+        <p>The following button shows our total revenue since we've opened.</p>
+            <Form Method="post" Action="showGeneralQueryResult.php">
+              <BR><BR>
+              <button name="query" Type="submit" value="select Round(Sum(P.Price * S.Quantity),2) as GrossIncome from Product P, SalesItem S">Total Revenue</button>
+            </Form>
+      </div>
+
+      <div class="block">
+        <p>The following button finds Dr. Shen's Receipt.</p>
+            <Form Method="post" Action="showGeneralQueryResult.php">
+              <BR><BR>
+              <button name="query" Type="submit" value="select Pr.Name, I.Quantity, Round((I.Quantity * Pr.Price),2) as Total
+              from Customer C, SalesItem I, Product Pr, Person P, Sales S
+              where Pr.Id=I.ProductId and C.Id=S.CustomerId and P.Id=S.CustomerId and S.CustomerId=21 and S.SalesId=I.SalesId;">Dr. Shen's Receipt</button>
+            </Form>
+      </div>
+
+      <div class="block">
+        <p>The following button shows the average payrate of the Retail department employees.</p>
+            <Form Method="post" Action="showGeneralQueryResult.php">
+              <BR><BR>
+              <button name="query" Type="submit" value="select Round(Avg(E.Payrate),2) as RetailPayrate
+              from Employee E, Department D, WorksIn W
+              where E.Id=W.EmployeeId and W.DeptId=D.Id and D.DeptName='Retail'">Avg Payrate</button>
+            </Form>
+      </div>
+
+      <div class="block">
+        <p>The following button shows the best selling product in our store.</p>
+            <Form Method="post" Action="showGeneralQueryResult.php">
+              <BR><BR>
+              <button name="query" Type="submit" value="Select Name
+              From ProductSold P, Product P1,
+              (select Max(QuantitySold) as maxx
+              from ProductSold) As A
+              Where P.QuantitySold=A.maxx AND P1.Id=P.Id;">Best Seller</button>
+            </Form>
+        </div>
+
+        <div class="block">
+        <p>The following button shows the names and addresses of customers who recieve mail.</p>
+            <Form Method="post" Action="showGeneralQueryResult.php">
+              <BR><BR>
+              <button name="query" Type="submit" value="select P.FirstName, P.LastName, P.Address
+              from Person P, Customer C
+              where P.Id=C.Id and ReceivesMail=1;">Mailing List</button>
+            </Form>
+        </div>
+
+        <div class="block">
+        <p>The following button shows the departments that have more than one employee working in them.</p>
+            <Form Method="post" Action="showGeneralQueryResult.php">
+              <BR><BR>
+              <button name="query" Type="submit" value="Select DeptName
+              From Department D,
+              (Select DeptId, Count(DeptId) as count
+              From WorksIn
+              Group By DeptId) As A
+              Where D.Id=A.DeptId AND Count>1;">Packed Departments</button>
+            </Form>
+        </div>
+
+        <div class="block">
+        <p>The following button shows all of the products that have less than 10 stock.</p>
+            <Form Method="post" Action="showGeneralQueryResult.php">
+              <BR><BR>
+              <button name="query" Type="submit" value="select P.Name, P.Stock from Product P
+              where P.Stock<10;">Low Stock</button>
+            </Form>
+        </div>
+
+        <div class="block">
+        <p>The following button shows how many products that have been returned to the store.</p>
+            <Form Method="post" Action="showGeneralQueryResult.php">
+              <BR><BR>
+              <button name="query" Type="submit" value="Select Sum(R.Quantity) As TotalReturnedItems From IsReturn R;">Returned Items</button>
+            </Form>
+        </div>
+
+        <div class="block">
+        <p>The following button shows the total amount of money spent per customer.</p>
+            <Form Method="post" Action="showGeneralQueryResult.php">
+              <BR><BR>
+              <button name="query" Type="submit" value="select P.FirstName, P.LastName, Round((I.Quantity * Pr.Price),2) as Total
+              from Customer C, Sales S, Product Pr, Person P, SalesItem I
+              where Pr.Id=I.ProductId and C.Id=S.CustomerId and P.Id=S.CustomerId and S.SalesId=I.SalesId
+              group by FirstName;">Customers</button>
+            </Form>
+        </div>
+
+        <div class="block">
+        <p>The following button shows the employees who have worked more than a year.</p>
+            <Form Method="post" Action="showGeneralQueryResult.php">
+              <BR><BR>
+              <button name="query" Type="submit" value="select P.FirstName, P.LastName, W.WorksSince
+              from Person P, WorksIn W
+              where W.WorksSince > '20171104' and P.Id=W.EmployeeId;">Tenure</button>
+            </Form>
+        </div>
+    </div>      <!-- This is where the general queries where anyone could input them. -->
+
+    <div class="something2">
+        <H1>Query submission form</H1>
+        <p>Enter your query and we will send you back the result.</p>
+        <Form Method="post" Action="showGeneralQueryResult.php">
+          <!--First input box, with a name "query", thus earmarked with the name -->
+          <!-- $_POST['query'] in the handler. The value will be filled in by the user -->
+          <Input Type="text" Size=25 Name="query">
+          <BR><BR>
+          <!--The sumbit button, with the name being $_POST['submit'], -->
+          <!--and the message shown being 'Submit'-->
+          <!--When clicked, the filled query is sent over -->
+          <Input Type="submit" Name="submit" Value="Submit">
+        </Form>
+    </div>
+  </Body>
+</Html>
