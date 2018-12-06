@@ -1,0 +1,169 @@
+/*Style sheet used for all html and php files for project*/
+/*Grey #FFFAFA, White #36454F*/
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+body {
+  background-color: #FFFAFA;
+  font-family: 'Numans';
+}
+button {
+  background-color: #36454F;
+  color: #FFFAFA;
+  font-family: 'Numans';
+  border-color: #36454F;
+}
+h1{
+  color: #36454F;
+  font-family: 'Numans';
+}
+
+h2{
+  color: #36454F;
+  text-align: center;
+  font-family: 'Numans';
+}
+p{
+  color: #36454F;
+  font-family: 'Numans';
+  margin: 0px;
+  padding: 5px;
+}
+tr{
+  color: #36454F;
+  font-family: 'Numans';
+}
+td{
+  background-color: #FFFAFA;
+  color: #36454F;
+  width: 100%;
+  font-size: 18px;
+  text-align: center;
+  font-family: 'Numans';
+}
+
+table{
+  color: #36454F;
+  font-family:'Numans';
+}
+
+.main_cont{
+  width: 75%;
+  height: auto;
+  text-align: center;
+  margin: 0;
+  float:left;
+}
+
+.something2{
+  float: right;
+  width: 25%;
+  margin-right: 0px;
+  padding: 0;
+}
+
+.block{
+  padding: 0px;
+  margin: 10px;
+  width: 17%;
+  border: 2px solid black;
+  height: 210px;
+  float: right;
+  background-color: #EEEEEE;
+}
+
+.block p{
+  height: 80px;
+  padding-top: 20px;
+}
+
+.menu {
+    background-color: #36454F;
+    overflow: hidden;
+	  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.menu a {
+    float: left;
+    color: #FFFAFA;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+}
+.menu a:hover {
+    background-color: #B8B8B8;;
+    color: black;
+}
+.menu a.active {
+    background-color: #FFFAFA;
+    color: #36454F;
+}
+
+.mainBody{
+  text-align: center;
+  width: 50%;
+  font-size: 18pt;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#idname{
+  text-align: center;
+}
+
+#homeH1{
+  text-align: center;
+  font-size: 24pt;
+}
+
+.homeH2{
+  font-size: 22pt;
+}
+
+.something{
+  width: 55%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.peter{
+  padding: 40px;
+  border: 2px solid grey;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 40px;
+  width: 550px;
+  background-color: #eeeeee;
+  text-align: left;
+}
+
+.peter p{
+  font-size: 22pt;
+}
+
+.peter input{
+  padding: 10px 24px;
+}
+
+#mac{
+  height: 48px;
+  float: right;
+  width: auto;
+  font-size: 17px;
+  font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.ilikebigbuttons{
+  height: 100px;
+  width: 150px;
+  margin-top: 5px;
+}
+
+.bananaland{
+  text-align: center;
+}
+
+.department{
+  text-align: center;
+}
